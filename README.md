@@ -1,2 +1,2 @@
-# ivp
-Website of AMI IVP Events
+# ami.github.io
+ Official AMI church website
