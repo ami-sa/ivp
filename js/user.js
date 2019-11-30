@@ -1,5 +1,9 @@
 jQuery(function(){
-	var url_event_domain = "http://localhost/aser/"
+	var url_event_domain = "http://localhost/aser/";
+	
+	// api.com == "localhost/aser/others/learning/test_api/"; //
+	var url_api =  "http://localhost/aser/others/learning/test_api/"; // ToDo: Change accordingly.
+	
 	var url_event_tool = url_event_domain + "login-sys/ers/attendize/public/e/";
 	var event_organiser_id = 1;
 
@@ -19,13 +23,16 @@ jQuery(function(){
 			}
 		}
 	};
+	
+	// *************************************************************** Ticket Details *************************************************
 
 	function getIvpEventTicketDetail(mainUrl, eventId)
 	{
 		
 		$.ajax({
-			url: mainUrl + 'others/learning/test_api/api/get/get_attendize_ivp_ticket.php?eid='+eventId,	// eid==>event_id
+			url: mainUrl + 'api/get/get_attendize_ivp_ticket.php?eid='+eventId,	// eid==>event_id
 			type: 'get',
+			async: false,
 			contentType:"application/json; charset=utf-8",		// This is also set in the php script and is not required again here
 			dataType: 'JSON',									// We either set the data type here or in the php script using  header("Content-Type: application/json; charset=UTF-8");
 			success: function(response){
@@ -108,14 +115,15 @@ jQuery(function(){
 		});
 	}
 	
+	// *************************************************************** Event Details *************************************************
 
 	{
 		// Query event details from server based on oid and/or eid
 		
 		var eid = getUrlParameter('eid');
-		// alert(eid);
 		
-		var url_server = url_event_domain + 'others/learning/test_api/api/get/get_attendize_ivp_event.php';
+		
+		var url_server = url_api + 'api/get/get_attendize_ivp_event.php';
 		if( ('' == eid) || (undefined == eid))
 		{
 			url_server = url_server + '?oid='+event_organiser_id;
@@ -126,10 +134,12 @@ jQuery(function(){
 		}
 		
 		
+		
 		// Get event details
 		$.ajax({
 			url: url_server,	// oid==>organiser id
-			type: 'get',
+			type: 'GET',
+			async: false,
 			contentType:"application/json; charset=utf-8",		// This is also set in the php script and is not required again here
 			dataType: 'JSON',					// We either set the data type here or in the php script using  header("Content-Type: application/json; charset=UTF-8");
 			success: function(response){
@@ -150,14 +160,73 @@ jQuery(function(){
 								event_id = response.message[tmp].event_id;
 					
 								$('#buy_now').attr('href', url_event_tool + response.message[tmp].event_id + '/' + response.message[tmp].event_title);
+								$('#intro_video').attr('href', response.message[tmp].event_details);
 								
-								$('#event_title').html(response.message[tmp].event_title);
+								// We do not change the tile since it will always be IVP. $('#event_title').html(response.message[tmp].event_title);
 								$('#event_sub_detail').html('From ' + response.message[tmp].event_start + ' - ' + response.message[tmp].event_end);
 								$('#about_event').html(response.message[tmp].event_desc);
 								$('#event_date').html(response.message[tmp].event_start + ' - ' + response.message[tmp].event_end);
-								$('#event_location').html(response.message[tmp].event_venue + ', ' + response.message[tmp].event_addr1 + ', ' + response.message[tmp].event_addr2 + ', ' + response.message[tmp].event_postcode + ', ' + response.message[tmp].event_city);
+								
+								
+								// $('#event_location').html(response.message[tmp].event_venue + ', ' + response.message[tmp].event_addr1 + ', ' + response.message[tmp].event_addr2 + ', ' + response.message[tmp].event_postcode + ', ' + response.message[tmp].event_city);
+
+
+								var location_of_event = ' ';
+								
+								// The order of the 'ifs' should not be changed
+								if( (null !== response.message[tmp].event_venue) && ('' !== response.message[tmp].event_venue) && (' ' !== response.message[tmp].event_venue) )
+								{
+									location_of_event = response.message[tmp].event_venue;
+								}
+								else
+								{
+									// Do nothing
+								}
+								
+								if( (null !== response.message[tmp].event_addr1) && ('' !== response.message[tmp].event_addr1) && (' ' !== response.message[tmp].event_addr1) )
+								{
+									location_of_event = (( (location_of_event !== '') && (location_of_event !== ' '))? (location_of_event + ', ') : '' ) + response.message[tmp].event_addr1;
+								}
+								else
+								{
+									// Do nothing
+								}
+								
+								if( (null !== response.message[tmp].event_addr2) && ('' !== response.message[tmp].event_addr2) && (' ' !== response.message[tmp].event_addr2) )
+								{
+									location_of_event = (( (location_of_event !== '') && (location_of_event !== ' '))? (location_of_event + ', ') : '' ) + response.message[tmp].event_addr2;
+									
+								}
+								else
+								{
+									// Do nothing
+								}
+								
+								
+								if( (null !== response.message[tmp].event_postcode) && ('' !== response.message[tmp].event_postcode) && (' ' !== response.message[tmp].event_postcode) )
+								{
+									location_of_event = (( (location_of_event !== '') && (location_of_event !== ' '))? (location_of_event + ', ') : '' )  + response.message[tmp].event_postcode;
+									
+								}
+								else
+								{
+									// Do nothing
+								}
+								
+								
+								if( (null !== response.message[tmp].event_city) && ('' !== response.message[tmp].event_city) && (' ' !== response.message[tmp].event_city) )
+								{
+									location_of_event = (( (location_of_event !== '') && (location_of_event !== ' '))? (location_of_event + ', ') : '' ) + response.message[tmp].event_city;
+								}
+								else
+								{
+									// Do nothing
+								}						 
+								
+								
+								$('#event_location').html(location_of_event);
 																								
-								getIvpEventTicketDetail(url_event_domain, event_id);
+								getIvpEventTicketDetail(url_api, event_id);
 								break;
 							}
 							else
@@ -169,11 +238,68 @@ jQuery(function(){
 				}
 			},
 			error: function(xhr, status, error){
-				alert(xhr.responseText);
+				console.log('getEventError', (xhr.statusText + xhr.responseText));
+				// alert(xhr.responseText);
 			}
 		});				
 	}
+	
 		
+	// *************************************************************** Gallery *************************************************	
+	function getIvpGalleryImages(type)
+	{
+		var filesArray = []; 
+		var filesObject = new Object();
+			
+		$.ajax({
+			url: url_api + 'api/get/get_attendize_ivp_gallery.php?id='+type,	
+			type: 'get',
+			async: false,
+			contentType:"application/json; charset=utf-8",		// This is also set in the php script and is not required again here
+			dataType: 'JSON',									// We either set the data type here or in the php script using  header("Content-Type: application/json; charset=UTF-8");
+			success: function(response){
+				
+				if(response)
+				{
+					
+					var len = Object.keys(response.message).length;
+					// alert(len);
+					var tmp;
+					for(tmp = 0; tmp<len; tmp++)
+					{
+						var name = response.message[tmp].name;
+						var url = response.message[tmp].url;
+						var type = response.message[tmp].type;
+						if('ivp' === type)
+						{
+							var img_element = '<img src="'+url+'" alt="">';
+							var a_element = '<a href="'+url+'" class="venobox" data-gall="gallery-carousel">'+img_element+'</a>';
+							
+							// <a href="img/gallery/1.jpg" class="venobox" data-gall="gallery-carousel"><img src="img/gallery/1.jpg" alt=""></a>
+							
+							$(a_element).appendTo('#gallery_pics');
+						}
+						else if('venue' === type)		// venue images
+						{
+							var img_div1 = '<div class="col-lg-3 col-md-4"><div class="venue-gallery"><a href="'+url+'" class="venobox" data-gall="venue-gallery"><img src="'+url+'" alt="'+name+'" class="img-fluid"></a></div></div>';
+						}
+					}
+				}
+			},
+			
+			error: function(xhr, status, error){
+				
+
+			}
+		});
+	}
+	
+	getIvpGalleryImages('ivp');
+	
+		
+	// *************************************************************** Venue images *************************************************
+	getIvpVenueImages('venue');
+	
 })
 
 
