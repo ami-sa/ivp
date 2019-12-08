@@ -1383,6 +1383,27 @@ body.mobile-nav-active #mobile-nav-toggle {
   display: block;
 }
 
+/*For subscription form*/
+#subscriptionsuccess {
+  color: #f82249;
+  border: 1px solid #f82249;
+  display: none;
+  text-align: center;
+  padding: 15px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+#subscriptionerror {
+  color: red;
+  display: none;
+  border: 1px solid red;
+  text-align: center;
+  padding: 15px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
 #contact .form .validation {
   color: red;
   display: none;

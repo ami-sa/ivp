@@ -248,10 +248,13 @@
           <p>Be the first to know about upcoming events.</p>
         </div>
 
-        <form method="POST" action="#">
+        <form method="POST" action="" id="subscribe_form" class="subscribe__form">
+
+		  <div id="subscriptionsuccess">Thank you for subscribing!</div>
+          <div id="subscriptionerror">An error occurred. Please try again!</div>
           <div class="form-row justify-content-center">
             <div class="col-auto">
-              <input type="text" class="form-control" placeholder="Enter your Email">
+              <input type="text" class="form-control" placeholder="Enter your Email" id="subscribe_email">
             </div>
             <div class="col-auto">
               <button type="submit">Subscribe</button>
@@ -391,7 +394,7 @@
             <div class="contact-email">
               <i class="ion-ios-email-outline"></i>
               <h3>Email</h3>
-              <p><a href="mailto:event@alleluiaministries.be">event@alleluiaministries.be</a></p>
+              <p><a href="mailto:event@alleluiaministries.be" id="public_email">event@alleluiaministries.be</a></p>
             </div>
           </div>
 
@@ -513,6 +516,7 @@ We are inspired to serve because submission is all about service, both of God an
 
   <!-- Contact Form JavaScript File -->
   <script src="contactform/contactform.js"></script>
+  <script src="contactform/subscribeform.js"></script>
 
   <!-- Event details Javascript File -->
   <script src="js/user.js"></script>

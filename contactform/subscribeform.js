@@ -1,4 +1,4 @@
-$('form.contactForm').submit(function(e) {
+$('#subscribe_form').submit(function(e) {
 
 	e.preventDefault();
 	
@@ -94,24 +94,23 @@ $('form.contactForm').submit(function(e) {
 		return false;
 	}
 	else{
-		var contactMessage = $('.contactForm').find("textarea").val();
 		
-		var contactSubject = $('#name').val() + '(' + $('#email').val() + '):' + $('#subject').val();
+		var emailObject = new Object();
+			
+			
+		emailObject.receiver_name        	= "AMI Event Admin";
+		emailObject.receiver_email        	= 'eric_tizie@yahoo.com';// $('#public_email').html();		// AMI Email which is hard coded 
+		emailObject.email_subject      		= 'Newsletter Subscription Request';
+		emailObject.email_body_html    		= 'Dear Admin,\n' + $('#subscribe_email').val() + " has requested to be subscribed to the newsletter.";
+		emailObject.email_body_no_html    	= 'Dear Admin,\n' + $('#subscribe_email').val() + " has requested to be subscribed to the newsletter.";
+		emailObject.email_attachment       	= "";
+		
 		
 		
 		var url_event_domain = "http://localhost/aser/";
 		// ToDo: Change link
 		var action = url_event_domain + 'others/learning/test_api/api/action/send_email.php';
 	
-		var emailObject = new Object();
-	
-		emailObject.receiver_name        	= "AMI Event Admin";
-		emailObject.receiver_email        	= $('#public_email').html();		// AMI Email which is hard coded 
-		emailObject.email_subject      		= contactSubject;
-		emailObject.email_body_html    		= contactMessage;
-		emailObject.email_body_no_html    	= contactMessage;
-		emailObject.email_attachment       	= "";
-
 		
 		$.ajax({
 			type: "POST",
@@ -121,15 +120,15 @@ $('form.contactForm').submit(function(e) {
 			dataType: 'JSON',									// We either set the data type here or in the php script using  header("Content-Type: application/json; charset=UTF-8");
 			processData: false,
 			success: function(msg) {
-				// alert(msg.message);
-			if (msg.message == 'OK') {
-				$("#sendmessage").addClass("show");
-				$("#errormessage").removeClass("show");
-				$('.contactForm').find("input, textarea").val("");
+				// 
+			if (msg.message == 'OK') {alert(msg.message);
+				$("#subscriptionsuccess").addClass("show");
+				$("#subscriptionerror").removeClass("show");
+				$('#subscribe_email').val("");
 			} else {
-				$("#sendmessage").removeClass("show");
-				$("#errormessage").addClass("show");
-				$('#errormessage').html(msg);
+				$("#subscriptionerror").addClass("show");
+				$("#subscriptionsuccess").removeClass("show");
+				$('#subscribe_email').val("");
 			}
 		},
 				
