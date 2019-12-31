@@ -254,6 +254,7 @@ jQuery(function(){
 // *************************************************************** Gallery *************************************************	
 	function getIvpGalleryImages(type)
 	{
+		
 		var filesArray = []; 
 		var filesObject = new Object();
 			
@@ -267,15 +268,12 @@ jQuery(function(){
 				
 				if(response)
 				{
-					var bIsIvpImages = 0;
-					
+					var tmpCntr = 0;
 					var len = Object.keys(response.message).length;
 					// alert(len);
 					var tmp;
 					
 					var gallery_div = '<div class="owl-carousel gallery-carousel" id="gallery_pics"> </div>';
-					
-					// var section_header = '<div class="container"><div class="section-header"><h2>Gallery</h2><p>Check our gallery from the recent events</p></div></div>';
 					
 					
 					var tmpImages = '';
@@ -284,38 +282,20 @@ jQuery(function(){
 						var name = response.message[tmp].name;
 						var url = response.message[tmp].url;
 						var type = response.message[tmp].type;
+										
 						
 						
 						
-						
-						
-						
-						if('ivp' === type)
+						if( ('ivp' === type) && (10 > tmpCntr) )
 						{
 							
 							
 							var img_element = '<img src="'+ url +'" alt="">';
-							// var img_div =$("<a />").attr( {"href":url, "class":"venobox", "data-gall":"gallery-carousel" }).html(img_element);
 							
 							var a_element = '<a href="'+url+'" class="venobox" data-gall="gallery-carousel">'+img_element+'</a>';
-						    // $(a_element).append('#gallery_pics');
 							tmpImages = a_element + tmpImages;
 							
-							gallery_div = '<div class="owl-carousel gallery-carousel">' + tmpImages + '</div>';
-							
-							alert(tmpImages);
-							// var a_element = '<a href="'+url+'" class="venobox" data-gall="gallery-carousel">'+img_element+'</a>';
-							
-							// <a href="img/gallery/1.jpg" class="venobox" data-gall="gallery-carousel"><img src="img/gallery/1.jpg" alt=""></a>
-							
-							// $(a_element).appendTo('#gallery_pics');
-							// $('#gallery_pics').html(a_element + $('#gallery_pics').html()) ;
-												
-
-
-
-
-							
+																	
 							var section_main =     '<div class="container">\
 								<div class="section-header">\
 								  <h2>Gallery</h2>\
@@ -328,35 +308,40 @@ jQuery(function(){
 		
 							$('#gallery').html(section_main);
 							
-							bIsIvpImages = 1;
 							
 						}
-						else if('venue' === type)		// venue images
+						else if( ('venue' === type) && (7 > tmpCntr) )		// venue images
 						{
-							bIsIvpImages = 2;
 							
-							var img_div1 = '<div class="col-lg-3 col-md-4"><div class="venue-gallery"><a href="'+url+'" class="venobox" data-gall="venue-gallery"><img src="'+url+'" alt="'+name+'" class="img-fluid"></a></div></div>';
+							var venue_img = '\
+									          <div class="col-lg-3 col-md-4">\
+												<div class="venue-gallery">\
+												  <a href="'+url+'" class="venobox" data-gall="venue-gallery">\
+													<img src="'+url+'" alt="" class="img-fluid">\
+												  </a>\
+												</div>\
+											  </div>\
+							';
+							
+							tmpImages = venue_img + tmpImages;
+							
+							var venue_html = '\
+									          <div class="col-lg-3 col-md-4">\
+												<div class="venue-gallery">\
+												  <a href="img/venue-gallery/1.jpg" class="venobox" data-gall="venue-gallery">\
+													<img src="img/venue-gallery/1.jpg" alt="" class="img-fluid">\
+												  </a>\
+												</div>\
+											  </div>' + tmpImages;
+							
+							$('#venue_pics').html(venue_html);					
+
+							
+							
 						}
+						tmpCntr++;
 					}
-					
-					
-					if(1 === bIsIvpImages)
-					{
-						// 1 == IVP
-						//var gallery_div = $("<div />").attr( {"class":"owl-carousel gallery-carousel", "id":"gallery_pics" }).html(tmpImages);
-						//$('#gallery_pics').html(gallery_div);
-						
-						//alert(gallery_div);
-						var section_gallery = '<div class="container"><div class="section-header"><h2>Gallery</h2><p>Check our gallery from the recent events</p></div></div>' + gallery_div;
-						
-						//$('#gallery').html(section_gallery);
-						console.log('gallery_images', $('#gallery_pics').html());
-						//$('#gallery').html($(gallery_div).appendTo(section_header));
-					}
-					else if(2 === bIsIvpImages)
-					{
-						// 2 == venue
-					}
+										
 				}
 			},
 			
@@ -367,7 +352,7 @@ jQuery(function(){
 		});
 	}
 	
-	getIvpGalleryImages('ivp');
+	getIvpGalleryImages('gallery');
 	
 		
 	// *************************************************************** Venue images *************************************************
