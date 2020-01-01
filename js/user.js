@@ -13,16 +13,16 @@ else
 {
 	url_event_domain = "https://www.en3ticket.com/";
 
-	url_api =  "https://www.en3ticket.com/api/api/"; 
+	url_api =  "www.en3ticket.com/api/"; 
 	
 	url_event_tool = url_event_domain + "ivp/public/e/";
 }
 
 	url_event_domain = "https://www.en3ticket.com/";
 
-	url_api =  "https://www.en3ticket.com/api/api/"; 
+	url_api =  "https://www.en3ticket.com/api/"; 
 	
-	url_event_tool = "ivp.en3ticket.com/public/e/";
+	url_event_tool = "ihttps://vp.en3ticket.com/e/";
 	
 jQuery(function(){
 	
@@ -276,11 +276,12 @@ jQuery(function(){
 		
 		var filesArray = []; 
 		var filesObject = new Object();
-			
+			alert(url_api + 'api/get/get_attendize_ivp_gallery.php?id='+type);
 		$.ajax({
 			url: url_api + 'api/get/get_attendize_ivp_gallery.php?id='+type,	
 			type: 'get',
 			async: false,
+			
 			contentType:"application/json; charset=utf-8",		// This is also set in the php script and is not required again here
 			dataType: 'JSON',									// We either set the data type here or in the php script using  header("Content-Type: application/json; charset=UTF-8");
 			success: function(response){
@@ -301,9 +302,7 @@ jQuery(function(){
 						var name = response.message[tmp].name;
 						var url = response.message[tmp].url;
 						var type = response.message[tmp].type;
-										
-						
-						
+															
 						
 						if( ('ivp' === type) && (10 > tmpCntr) )
 						{
@@ -364,7 +363,8 @@ jQuery(function(){
 			
 			error: function(xhr, status, error){
 				
-
+				// var err = eval("(" + xhr.responseText + ")");
+				alert(xhr.responseText);
 			}
 		});
 	}
