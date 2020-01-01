@@ -22,7 +22,7 @@ else
 
 	url_api =  "https://www.en3ticket.com/api/"; 
 	
-	url_event_tool = "ihttps://vp.en3ticket.com/e/";
+	url_event_tool = "https://ivp.en3ticket.com/e/";
 	
 jQuery(function(){
 	
