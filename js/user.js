@@ -3,10 +3,24 @@ var url_event_domain = "http://localhost/aser/";
 // api.com == "localhost/aser/others/learning/test_api/"; //
 var url_api =  "http://localhost/aser/others/learning/test_api/"; // ToDo: Change accordingly.
 
-jQuery(function(){
+var url_event_tool = url_event_domain + "login-sys/ers/attendize/public/e/";
 
+if (location.hostname === "localhost" || location.hostname === "127.0.0.1")
+{
+	// It's a local server! Do nothing
+}
+else
+{
+	url_event_domain = "www.en3ticket.com";
+
+	url_api =  "www.en3ticket.com/api/api"; 
 	
-	var url_event_tool = url_event_domain + "login-sys/ers/attendize/public/e/";
+	url_event_tool = url_event_domain + "ivp/public/e/";
+}
+
+
+jQuery(function(){
+	
 	var event_organiser_id = 1;
 
 	var event_id = 1;		// default = 1
@@ -334,9 +348,7 @@ jQuery(function(){
 												</div>\
 											  </div>' + tmpImages;
 							
-							$('#venue_pics').html(venue_html);					
-
-							
+							$('#venue_pics').html(venue_html);						
 							
 						}
 						tmpCntr++;
