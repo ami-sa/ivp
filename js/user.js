@@ -11,14 +11,19 @@ if (location.hostname === "localhost" || location.hostname === "127.0.0.1")
 }
 else
 {
-	url_event_domain = "www.en3ticket.com";
+	url_event_domain = "https://www.en3ticket.com/";
 
-	url_api =  "www.en3ticket.com/api/api"; 
+	url_api =  "https://www.en3ticket.com/api/api/"; 
 	
 	url_event_tool = url_event_domain + "ivp/public/e/";
 }
 
+	url_event_domain = "https://www.en3ticket.com/";
 
+	url_api =  "https://www.en3ticket.com/api/api/"; 
+	
+	url_event_tool = "ivp.en3ticket.com/public/e/";
+	
 jQuery(function(){
 	
 	var event_organiser_id = 1;
