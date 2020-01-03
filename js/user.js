@@ -11,11 +11,11 @@ if (location.hostname === "localhost" || location.hostname === "127.0.0.1")
 }
 else
 {
-	url_event_domain = "https://www.en3ticket.com/";
+	url_event_domain = "//www.en3ticket.com/";
 
-	url_api =  "https://www.en3ticket.com/api/"; 
+	url_api =  "//www.en3ticket.com/api/"; 
 	
-	url_event_tool = "https://ivp.en3ticket.com/e/";
+	url_event_tool = "//ivp.en3ticket.com/e/";
 }
 
 	
