@@ -123,44 +123,32 @@ jQuery(function(){
 	
 	function getIvpEventTicketDetail(mainUrl, eventId)
 	{
-		var req_url = mainUrl + 'api/get/get_attendize_ivp_ticket.php?eid='+eventId;	// eid==>event_id
+		var req_url = 'remote/remote.php?cmd=ticket&eid='+eventId;	// eid==>event_id
 		
+		$.ajax({
+			url: req_url,
+			type: 'get',
+			async: false,
+			contentType:"application/json; charset=utf-8",		// This is also set in the php script and is not required again here
+			dataType: 'JSON',									// We either set the data type here or in the php script using  header("Content-Type: application/json; charset=UTF-8");
+			success: function(response){
 				
+				processEventTicketDetails(response);
+						
+			},
+			
+			error: function(xhr, status, error){
+				resetEventTicketDetail();
+			}
+		});
+			
 		if (location.hostname === "localhost" || location.hostname === "127.0.0.1")
 		{
-			$.ajax({
-				url: req_url,
-				type: 'get',
-				async: false,
-				contentType:"application/json; charset=utf-8",		// This is also set in the php script and is not required again here
-				dataType: 'JSON',									// We either set the data type here or in the php script using  header("Content-Type: application/json; charset=UTF-8");
-				success: function(response){
-					
-					processEventTicketDetails(response);
-							
-				},
-				
-				error: function(xhr, status, error){
-					resetEventTicketDetail();
-				}
-			});
+			
 		}
 		else
 		{
-			$.ajax({
-			  crossOrigin: true,
-			  url: req_url,
-			  //dataType: "json", //no need. if you use crossOrigin, the dataType will be override with "json"
-			  //charset: 'ISO-8859-1', //use it to define the charset of the target url
-			  context: {},
-			  success: function(data) {
-				 // alert(data);
-				  processEventTicketDetails(data);
-				}
-			})
-			.done(function( data, textStatus, jqXHR ) {
-				alert(data);
-			});
+			// Do nothing
 		}
 	}
 	
@@ -268,7 +256,7 @@ jQuery(function(){
 		var eid = getUrlParameter('eid');
 		
 		
-		var url_server = url_api + 'api/get/get_attendize_ivp_event.php';
+		var url_server =  'remote/remote.php';
 		if( ('' == eid) || (undefined == eid))
 		{
 			url_server = url_server + '?oid='+event_organiser_id;
@@ -281,41 +269,29 @@ jQuery(function(){
 		
 		
 		// Get event details
-
+		$.ajax({
+			url: url_server+'&cmd=event',	// oid==>organiser id
+			type: 'GET',
+			async: false,
+			contentType:"application/json; charset=utf-8",		// This is also set in the php script and is not required again here
+			dataType: 'JSON',					// We either set the data type here or in the php script using  header("Content-Type: application/json; charset=UTF-8");
+			success: function(response){
+				processEventDetails(response);
+		
+			},
+			error: function(xhr, status, error){
+				console.log('getEventError', (xhr.statusText + xhr.responseText));
+				// alert(xhr.responseText);
+			}
+		});
+		
 		if (location.hostname === "localhost" || location.hostname === "127.0.0.1")
 		{
-			$.ajax({
-				url: url_server,	// oid==>organiser id
-				type: 'GET',
-				async: false,
-				contentType:"application/json; charset=utf-8",		// This is also set in the php script and is not required again here
-				dataType: 'JSON',					// We either set the data type here or in the php script using  header("Content-Type: application/json; charset=UTF-8");
-				success: function(response){
-					processEventDetails(response);
-			
-				},
-				error: function(xhr, status, error){
-					console.log('getEventError', (xhr.statusText + xhr.responseText));
-					// alert(xhr.responseText);
-				}
-			});	
+				
 		}
 		else
 		{
-			$.ajax({
-			  crossOrigin: true,
-			  url: url_server,
-			  //dataType: "json", //no need. if you use crossOrigin, the dataType will be override with "json"
-			  //charset: 'ISO-8859-1', //use it to define the charset of the target url
-			  context: {},
-			  success: function(data) {
-				 // alert(data);
-				  processEventDetails(data);
-				}
-			})
-			.done(function( data, textStatus, jqXHR ) {
-				alert(data);
-			});
+			// Do nothing
 		}
 		
 	}

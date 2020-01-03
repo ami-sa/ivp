@@ -1,4 +1,3 @@
-alert(url_api);
 
 var url_event_domain = "http://localhost/aser/";
 
@@ -102,28 +101,29 @@ else
 	function getIvpGalleryImages(type)
 	{
 						
-		var req_url = url_api + 'api/get/get_attendize_ivp_gallery.php?id='+type;
+		var req_url = 'remote/remote.php?cmd=images&id='+type;
+		$.ajax({
+			url: req_url,	
+			type: 'get',
+			async: false,			
+			contentType:"application/json; charset=utf-8",		// This is also set in the php script and is not required again here
+			dataType: 'JSON',									// We either set the data type here or in the php script using  header("Content-Type: application/json; charset=UTF-8");
+			success: function(response)
+			{
+				alert('xhr.responseText00');
+				procesGalleryImages(response, type);
+			},
+			
+			error: function(xhr, status, error){
+				
+				// var err = eval("(" + xhr.responseText + ")");
+				alert(xhr.responseText);
+			}
+		});
 		
 		if (location.hostname === "localhost" || location.hostname === "127.0.0.1")
 		{
-			$.ajax({
-				url: req_url,	
-				type: 'get',
-				async: false,			
-				contentType:"application/json; charset=utf-8",		// This is also set in the php script and is not required again here
-				dataType: 'JSON',									// We either set the data type here or in the php script using  header("Content-Type: application/json; charset=UTF-8");
-				success: function(response)
-				{
-					alert('xhr.responseText00');
-					procesGalleryImages(response, type);
-				},
-				
-				error: function(xhr, status, error){
-					
-					// var err = eval("(" + xhr.responseText + ")");
-					alert(xhr.responseText);
-				}
-			});
+			
 		}
 		else
 		{
