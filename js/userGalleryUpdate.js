@@ -13,11 +13,11 @@ if (location.hostname === "localhost" || location.hostname === "127.0.0.1")
 }
 else
 {
-	url_event_domain = "https://www.en3ticket.com/";
+	url_event_domain = "//www.en3ticket.com/";
 
-	url_api =  "https://www.en3ticket.com/api/"; 
+	url_api =  "//www.en3ticket.com/api/"; 
 	
-	url_event_tool = "https://ivp.en3ticket.com/e/";
+	url_event_tool = "//ivp.en3ticket.com/e/";
 }
 
 
@@ -26,17 +26,14 @@ else
 
 	function procesGalleryImages(response, type)
 	{
-		
-		
+				
 		if(response)
 		{
-			alert('xhr.responseText525252');
 			var tmpCntr = 0;
 			var len = Object.keys(response.message).length;
 			
 			var tmp;
-												
-			
+										
 			var tmpImages = '';
 			for(tmp = 0; tmp<len; tmp++)
 			{
@@ -47,8 +44,7 @@ else
 				
 				if( ('gallery' === type) && (10 > tmpCntr) )
 				{
-					
-					
+										
 					var img_element = '<img src="'+ url +'" alt="">';
 					
 					var a_element = '<a href="'+url+'" class="venobox" data-gall="gallery-carousel">'+img_element+'</a>';
