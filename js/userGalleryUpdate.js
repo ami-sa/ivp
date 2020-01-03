@@ -15,20 +15,11 @@ else
 {
 	url_event_domain = "https://www.en3ticket.com/";
 
-	url_api =  "www.en3ticket.com/api/"; 
-	
-	url_event_tool = url_event_domain + "ivp/public/e/";
-}
-
-	/*
-	url_event_domain = "https://www.en3ticket.com/";
-
 	url_api =  "https://www.en3ticket.com/api/"; 
 	
 	url_event_tool = "https://ivp.en3ticket.com/e/";
-	
-	*/
-	
+}
+
 
 
 // *************************************************************** Gallery *************************************************	
