@@ -110,7 +110,7 @@ else
 			dataType: 'JSON',									// We either set the data type here or in the php script using  header("Content-Type: application/json; charset=UTF-8");
 			success: function(response)
 			{
-				alert('xhr.responseText00');
+				// alert('xhr.responseText00');
 				procesGalleryImages(response, type);
 			},
 			
@@ -127,20 +127,7 @@ else
 		}
 		else
 		{
-			$.ajax({
-			  crossOrigin: true,
-			  url: req_url,
-			  //dataType: "json", //no need. if you use crossOrigin, the dataType will be override with "json"
-			  //charset: 'ISO-8859-1', //use it to define the charset of the target url
-			  context: {},
-			  success: function(data) {
-				 // alert(data);
-				  procesGalleryImages(data, type);
-				}
-			})
-			.done(function( data, textStatus, jqXHR ) {
-				alert(data);
-			});
+
 		}
 				
 	}
