@@ -46,57 +46,126 @@ jQuery(function(){
 	{
 		if(response)
 		{
+			console.log('TicketInfo', response);
 			
-			var len = Object.keys(response.message).length;
 			
-			// Standard Ticket
-			if(3<=len)
+			var len = Object.keys(response.message).length;alert(len);
+			if ( 6 > len )
 			{
-				$('#ticket_standard_title').html(response.message[2].ticket_title);
-				$('#standard_spaces_left').html('<b>Spaces Left: ' + (parseInt(response.message[2].ticket_count) - parseInt(response.message[2].ticket_sold))+ '</b>');
-				$('#standard_desc').html(response.message[2].ticket_desc);
-				$('#ticket_cost_standard').html(response.message[2].ticket_cost);	
+				
+				$('#Ticket1').css("visibility", "visible");
+				$('#Ticket2').css("visibility", "visible");
+				$('#Ticket3').css("visibility", "visible");
+				
+				// Standard Ticket
+				if(1<=len)
+				{
+					$('#ticket_standard_title').html(response.message[0].ticket_title);
+					$('#standard_spaces_left').html('<b>Spaces Left: ' + (parseInt(response.message[0].ticket_count) - parseInt(response.message[0].ticket_sold))+ '</b>');
+					$('#standard_desc').html(response.message[0].ticket_desc);
+					$('#ticket_cost_standard').html(response.message[0].ticket_cost);	
+					
+				}
+				else{
+					$('#ticket_standard_title').html('-');
+					$('#standard_spaces_left').html('<b>Spaces Left: 0</b>');
+					$('#standard_desc').html('');
+					$('#ticket_cost_standard').html('0.00');
+					
+					$('#Ticket1').css("visibility", "hidden");
+				}
+				
+				// VIP Ticket
+				if ( (2<=len) && (undefined !== response.message[1].ticket_title) )
+				{
+					$('#ticket_vip_title').html(response.message[1].ticket_title);
+					$('#vip_spaces_left').html('<b>Spaces Left: ' + (parseInt(response.message[1].ticket_count) - parseInt(response.message[1].ticket_sold))+ '</b>');
+					$('#vip_desc').html(response.message[1].ticket_desc);
+					$('#ticket_cost_vip').html(response.message[1].ticket_cost);	
+										
+				}
+				else{
+					$('#ticket_vip_title').html('-');
+					$('#vip_spaces_left').html('<b>Spaces Left: 0</b>');
+					$('#vip_desc').html('');
+					$('#ticket_cost_vip').html('0.00');
+					
+					$('#Ticket2').css("visibility", "hidden");
+				}
+				
+				// VVIP Ticket
+				if( (3<=len)  && (undefined !== response.message[2].ticket_title) )
+				{
+					
+					$('#ticket_vvip_title').html(response.message[2].ticket_title);
+					$('#vvip_spaces_left').html('<b>Spaces Left: ' + (parseInt(response.message[2].ticket_count) - parseInt(response.message[2].ticket_sold))+ '</b>');
+					$('#vvip_desc').html(response.message[2].ticket_desc);
+					$('#ticket_cost_vvip').html(response.message[2].ticket_cost);	
+					
+				}
+				else{
+					$('#ticket_vvip_title').html('-');
+					$('#vvip_spaces_left').html('<b>Spaces Left: 0</b>');
+					$('#vvip_desc').html('');
+					$('#ticket_cost_vvip').html('0.00');
+					
+					$('#Ticket3').css("visibility", "hidden");
+				}	
 				
 			}
-			else{
+			else
+			{
+				$('#Ticket1').css("visibility", "hidden");
+				$('#Ticket2').css("visibility", "hidden");
+				$('#Ticket3').css("visibility", "hidden");
+				
+				// Standard Ticket
 				$('#ticket_standard_title').html('-');
 				$('#standard_spaces_left').html('<b>Spaces Left: 0</b>');
 				$('#standard_desc').html('');
 				$('#ticket_cost_standard').html('0.00');
-			}
-			
-			// VIP Ticket
-			if(2<=len)
-			{
-				$('#ticket_vip_title').html(response.message[1].ticket_title);
-				$('#vip_spaces_left').html('<b>Spaces Left: ' + (parseInt(response.message[1].ticket_count) - parseInt(response.message[1].ticket_sold))+ '</b>');
-				$('#vip_desc').html(response.message[1].ticket_desc);
-				$('#ticket_cost_vip').html(response.message[1].ticket_cost);	
 				
-			}
-			else{
+				
+				// VIP Ticket
 				$('#ticket_vip_title').html('-');
 				$('#vip_spaces_left').html('<b>Spaces Left: 0</b>');
 				$('#vip_desc').html('');
 				$('#ticket_cost_vip').html('0.00');
-			}
-			
-			// VVIP Ticket
-			if(1<=len)
-			{
 				
-				$('#ticket_vvip_title').html(response.message[0].ticket_title);
-				$('#vvip_spaces_left').html('<b>Spaces Left: ' + (parseInt(response.message[0].ticket_count) - parseInt(response.message[0].ticket_sold))+ '</b>');
-				$('#vvip_desc').html(response.message[0].ticket_desc);
-				$('#ticket_cost_vvip').html(response.message[0].ticket_cost);	
 				
-			}
-			else{
+				// VVIP Ticket
 				$('#ticket_vvip_title').html('-');
 				$('#vvip_spaces_left').html('<b>Spaces Left: 0</b>');
 				$('#vvip_desc').html('');
 				$('#ticket_cost_vvip').html('0.00');
+					
 			}	
+			
+		}
+		else
+		{
+			// Standard Ticket
+			$('#ticket_standard_title').html('-');
+			$('#standard_spaces_left').html('<b>Spaces Left: 0</b>');
+			$('#standard_desc').html('');
+			$('#ticket_cost_standard').html('0.00');
+			
+			
+			// VIP Ticket
+			$('#ticket_vip_title').html('-');
+			$('#vip_spaces_left').html('<b>Spaces Left: 0</b>');
+			$('#vip_desc').html('');
+			$('#ticket_cost_vip').html('0.00');
+			
+			
+			// VVIP Ticket
+
+			$('#ticket_vvip_title').html('-');
+			$('#vvip_spaces_left').html('<b>Spaces Left: 0</b>');
+			$('#vvip_desc').html('');
+			$('#ticket_cost_vvip').html('0.00');
+				
+			
 		}
 		
 	}
