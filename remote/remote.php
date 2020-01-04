@@ -12,11 +12,9 @@
 
 	if(!in_array($_SERVER['REMOTE_ADDR'], $whitelist))
 	{
-		
+		$domain_url = 'https://www.en3ticket.com/api/';
 	}
 	
-	$domain_url = 'https://www.en3ticket.com/api/';
-
 	
 	function callAPI($method, $url, $data){
 	   $curl = curl_init();
@@ -38,7 +36,7 @@
 	   }
 
 	   // OPTIONS:
-	   curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+	  // curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 	   curl_setopt($curl, CURLOPT_URL, $url);
 	   curl_setopt($curl, CURLOPT_HTTPHEADER, array(
 		  'APIKEY: 111111111111111111111',

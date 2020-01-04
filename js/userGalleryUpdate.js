@@ -92,8 +92,7 @@ else
 					
 				}
 				tmpCntr++;
-			}
-								
+			}		
 		}
 	}
 	
@@ -116,20 +115,11 @@ else
 			
 			error: function(xhr, status, error){
 				
-				// var err = eval("(" + xhr.responseText + ")");
-				alert(xhr.responseText);
+				// var err = eval("(" + ")");
+				console.log(type + ' Error', xhr.responseText );
+				// alert(xhr.responseText);
 			}
 		});
-		
-		if (location.hostname === "localhost" || location.hostname === "127.0.0.1")
-		{
-			
-		}
-		else
-		{
-
-		}
-				
 	}
 	
 	getIvpGalleryImages('gallery');

@@ -142,19 +142,11 @@ jQuery(function(){
 			}
 		});
 			
-		if (location.hostname === "localhost" || location.hostname === "127.0.0.1")
-		{
-			
-		}
-		else
-		{
-			// Do nothing
-		}
 	}
 	
 	// *************************************************************** Event Details *************************************************
 	function processEventDetails(response)
-	{
+	{console.log('evt details', response);
 		if(response)
 		{
 			var len = Object.keys(response.message).length;
@@ -196,7 +188,7 @@ jQuery(function(){
 						
 						if( (null !== response.message[tmp].event_addr1) && ('' !== response.message[tmp].event_addr1) && (' ' !== response.message[tmp].event_addr1) )
 						{
-							location_of_event = (( (location_of_event !== '') && (location_of_event !== ' '))? (location_of_event + ', ') : '' ) + response.message[tmp].event_addr1;
+							location_of_event = (( (location_of_event !== '') && (location_of_event !== ' '))? (location_of_event + ', ') + response.message[tmp].event_addr1 : '' );
 						}
 						else
 						{
@@ -205,7 +197,7 @@ jQuery(function(){
 						
 						if( (null !== response.message[tmp].event_addr2) && ('' !== response.message[tmp].event_addr2) && (' ' !== response.message[tmp].event_addr2) )
 						{
-							location_of_event = (( (location_of_event !== '') && (location_of_event !== ' '))? (location_of_event + ', ') : '' ) + response.message[tmp].event_addr2;
+							location_of_event = (( (location_of_event !== '') && (location_of_event !== ' '))? (location_of_event + ', ') + response.message[tmp].event_addr2 : '' );
 							
 						}
 						else
@@ -216,7 +208,7 @@ jQuery(function(){
 						
 						if( (null !== response.message[tmp].event_postcode) && ('' !== response.message[tmp].event_postcode) && (' ' !== response.message[tmp].event_postcode) )
 						{
-							location_of_event = (( (location_of_event !== '') && (location_of_event !== ' '))? (location_of_event + ', ') : '' )  + response.message[tmp].event_postcode;
+							location_of_event = (( (location_of_event !== '') && (location_of_event !== ' '))? (location_of_event + ', ') + response.message[tmp].event_postcode : '' ) ;
 							
 						}
 						else
@@ -227,7 +219,7 @@ jQuery(function(){
 						
 						if( (null !== response.message[tmp].event_city) && ('' !== response.message[tmp].event_city) && (' ' !== response.message[tmp].event_city) )
 						{
-							location_of_event = (( (location_of_event !== '') && (location_of_event !== ' '))? (location_of_event + ', ') : '' ) + response.message[tmp].event_city;
+							location_of_event = (( (location_of_event !== '') && (location_of_event !== ' '))? (location_of_event + ', ') + response.message[tmp].event_city : '' );
 						}
 						else
 						{
@@ -284,15 +276,6 @@ jQuery(function(){
 				// alert(xhr.responseText);
 			}
 		});
-		
-		if (location.hostname === "localhost" || location.hostname === "127.0.0.1")
-		{
-				
-		}
-		else
-		{
-			// Do nothing
-		}
 		
 	}
 		
