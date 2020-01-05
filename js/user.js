@@ -49,7 +49,7 @@ jQuery(function(){
 			console.log('TicketInfo', response);
 			
 			
-			var len = Object.keys(response.message).length;alert(len);
+			var len = Object.keys(response.message).length;
 			if ( 6 > len )
 			{
 				
