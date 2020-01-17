@@ -140,7 +140,8 @@
 					else if($(this).val()==2)
 					{
 						
-						if( (cameras[1]!="") && (undefined !== cameras[1].stream) && (null != cameras[1].stream) ){alert('afsd');
+						if( (cameras[1]!="") /*&& (undefined !== cameras[1].stream) && (null != cameras[1].stream)*/ ){
+							//alert('afsd');
 							scanner.start(cameras[1]);
 						}else{
 							// alert('No Back camera found!');
