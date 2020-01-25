@@ -42,7 +42,7 @@ jQuery(function(){
 	
 	// *************************************************************** Ticket Details *************************************************
 
-	function processEventTicketDetails(response)
+	function processEventTicketDetails(response, event_currency)
 	{
 		if(response)
 		{
@@ -63,14 +63,14 @@ jQuery(function(){
 					$('#ticket_standard_title').html(response.message[0].ticket_title);
 					$('#standard_spaces_left').html('<b>Spaces Left: ' + (parseInt(response.message[0].ticket_count) - parseInt(response.message[0].ticket_sold))+ '</b>');
 					$('#standard_desc').html(response.message[0].ticket_desc);
-					$('#ticket_cost_standard').html(response.message[0].ticket_cost);	
+					$('#ticket_cost_standard').html(event_currency + ' ' + response.message[0].ticket_cost);	
 					
 				}
 				else{
 					$('#ticket_standard_title').html('-');
 					$('#standard_spaces_left').html('<b>Spaces Left: 0</b>');
 					$('#standard_desc').html('');
-					$('#ticket_cost_standard').html('0.00');
+					$('#ticket_cost_standard').html(event_currency + ' ' + '0.00');
 					
 					$('#Ticket1').css("visibility", "hidden");
 				}
@@ -81,14 +81,14 @@ jQuery(function(){
 					$('#ticket_vip_title').html(response.message[1].ticket_title);
 					$('#vip_spaces_left').html('<b>Spaces Left: ' + (parseInt(response.message[1].ticket_count) - parseInt(response.message[1].ticket_sold))+ '</b>');
 					$('#vip_desc').html(response.message[1].ticket_desc);
-					$('#ticket_cost_vip').html(response.message[1].ticket_cost);	
+					$('#ticket_cost_vip').html(event_currency + ' ' + response.message[1].ticket_cost);	
 										
 				}
 				else{
 					$('#ticket_vip_title').html('-');
 					$('#vip_spaces_left').html('<b>Spaces Left: 0</b>');
 					$('#vip_desc').html('');
-					$('#ticket_cost_vip').html('0.00');
+					$('#ticket_cost_vip').html(event_currency + ' ' + '0.00');
 					
 					$('#Ticket2').css("visibility", "hidden");
 				}
@@ -100,14 +100,14 @@ jQuery(function(){
 					$('#ticket_vvip_title').html(response.message[2].ticket_title);
 					$('#vvip_spaces_left').html('<b>Spaces Left: ' + (parseInt(response.message[2].ticket_count) - parseInt(response.message[2].ticket_sold))+ '</b>');
 					$('#vvip_desc').html(response.message[2].ticket_desc);
-					$('#ticket_cost_vvip').html(response.message[2].ticket_cost);	
+					$('#ticket_cost_vvip').html(event_currency + ' ' + response.message[2].ticket_cost);	
 					
 				}
 				else{
 					$('#ticket_vvip_title').html('-');
 					$('#vvip_spaces_left').html('<b>Spaces Left: 0</b>');
 					$('#vvip_desc').html('');
-					$('#ticket_cost_vvip').html('0.00');
+					$('#ticket_cost_vvip').html(event_currency + ' ' + '0.00');
 					
 					$('#Ticket3').css("visibility", "hidden");
 				}	
@@ -123,21 +123,21 @@ jQuery(function(){
 				$('#ticket_standard_title').html('-');
 				$('#standard_spaces_left').html('<b>Spaces Left: 0</b>');
 				$('#standard_desc').html('');
-				$('#ticket_cost_standard').html('0.00');
+				$('#ticket_cost_standard').html(event_currency + ' ' + '0.00');
 				
 				
 				// VIP Ticket
 				$('#ticket_vip_title').html('-');
 				$('#vip_spaces_left').html('<b>Spaces Left: 0</b>');
 				$('#vip_desc').html('');
-				$('#ticket_cost_vip').html('0.00');
+				$('#ticket_cost_vip').html(event_currency + ' ' + '0.00');
 				
 				
 				// VVIP Ticket
 				$('#ticket_vvip_title').html('-');
 				$('#vvip_spaces_left').html('<b>Spaces Left: 0</b>');
 				$('#vvip_desc').html('');
-				$('#ticket_cost_vvip').html('0.00');
+				$('#ticket_cost_vvip').html(event_currency + ' ' + '0.00');
 					
 			}	
 			
@@ -148,14 +148,14 @@ jQuery(function(){
 			$('#ticket_standard_title').html('-');
 			$('#standard_spaces_left').html('<b>Spaces Left: 0</b>');
 			$('#standard_desc').html('');
-			$('#ticket_cost_standard').html('0.00');
+			$('#ticket_cost_standard').html(event_currency + ' ' + '0.00');
 			
 			
 			// VIP Ticket
 			$('#ticket_vip_title').html('-');
 			$('#vip_spaces_left').html('<b>Spaces Left: 0</b>');
 			$('#vip_desc').html('');
-			$('#ticket_cost_vip').html('0.00');
+			$('#ticket_cost_vip').html(event_currency + ' ' + '0.00');
 			
 			
 			// VVIP Ticket
@@ -163,7 +163,7 @@ jQuery(function(){
 			$('#ticket_vvip_title').html('-');
 			$('#vvip_spaces_left').html('<b>Spaces Left: 0</b>');
 			$('#vvip_desc').html('');
-			$('#ticket_cost_vvip').html('0.00');
+			$('#ticket_cost_vvip').html(event_currency + ' ' + '0.00');
 				
 			
 		}
@@ -190,7 +190,7 @@ jQuery(function(){
 		$('#ticket_cost_standard').html('0.00');
 	}
 	
-	function getIvpEventTicketDetail(mainUrl, eventId)
+	function getIvpEventTicketDetail(mainUrl, eventId, event_currency)
 	{
 		var req_url = 'remote/remote.php?cmd=ticket&eid='+eventId;	// eid==>event_id
 		
@@ -202,7 +202,7 @@ jQuery(function(){
 			dataType: 'JSON',									// We either set the data type here or in the php script using  header("Content-Type: application/json; charset=UTF-8");
 			success: function(response){
 				
-				processEventTicketDetails(response);
+				processEventTicketDetails(response, event_currency);
 						
 			},
 			
@@ -229,8 +229,10 @@ jQuery(function(){
 					
 					if( ('0' == response.message[tmp].isEventDisabled) && ('0' == response.message[tmp].isEventExpired) )
 					{
-						event_id = response.message[tmp].event_id;
+						var event_id = response.message[tmp].event_id;
 			
+						event_currency = response.message[tmp].symbol_left;
+						
 						$('#buy_now').attr('href', url_event_tool + response.message[tmp].event_id + '/' + response.message[tmp].event_title);
 						$('#intro_video').attr('href', response.message[tmp].event_details);
 						
@@ -298,7 +300,7 @@ jQuery(function(){
 						
 						$('#event_location').html(location_of_event);
 																						
-						getIvpEventTicketDetail(url_api, event_id);
+						getIvpEventTicketDetail(url_api, event_id, event_currency);
 						break;
 					}
 					else
