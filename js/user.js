@@ -231,7 +231,7 @@ jQuery(function(){
 					{
 						var event_id = response.message[tmp].event_id;
 			
-						event_currency = response.message[tmp].symbol_left;
+						var event_currency = response.message[tmp].symbol_left;
 						
 						$('#buy_now').attr('href', url_event_tool + response.message[tmp].event_id + '/' + response.message[tmp].event_title);
 						$('#intro_video').attr('href', response.message[tmp].event_details);
@@ -299,7 +299,7 @@ jQuery(function(){
 						
 						
 						$('#event_location').html(location_of_event);
-																						
+																																							
 						getIvpEventTicketDetail(url_api, event_id, event_currency);
 						break;
 					}
